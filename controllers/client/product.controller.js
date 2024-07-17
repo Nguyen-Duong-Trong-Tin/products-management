@@ -6,8 +6,13 @@ module.exports.index = async (req, res) => {
     deleted: false
   });
 
+  const newProducts = products.map(item => {
+    item.newPrice = (item.price / 100 * item.discountPercentage).toFixed(0);
+    return item;
+  });
+
   res.render("client/pages/products/index", {
     pageTitle: "Products",
-    products: products
+    products: newProducts
   });
 }
