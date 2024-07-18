@@ -1,0 +1,30 @@
+extends ../../layouts/default.pug
+
+block main
+  .products
+    .container
+      table.table.table-hover
+        thead
+          tr
+            th Order Number
+            th Image
+            th Title
+            th Price
+            th Status
+            th Action
+        tbody
+          each item, idx in products
+            tr
+              td #{idx + 1}
+              td
+                img(src=item.thumbnail, alt=item.title)
+              td #{item.title}
+              th #{item.price}$
+              th
+                if (item.status === "active")
+                  .btn.btn-success #{item.status}
+                else
+                  .btn.btn-danger #{item.status}
+              th
+                button.btn.btn-warning Edit
+                button.btn.btn-danger Delete

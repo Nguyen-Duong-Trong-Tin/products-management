@@ -12,8 +12,12 @@ ul {
 
 /* Header */
 .header {
+  position: sticky;
+  top: 0;
+  left: 0;
   padding: 20px 0;
   background-color: black;
+  z-index: 9999;
 }
 
 .header .inner-logo a {
@@ -55,3 +59,16 @@ ul {
   font-weight: bold;
 }
 /* End Sider */
+
+/* Products */
+.products {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.products td img {
+  width: 40%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
+/* End Products */
