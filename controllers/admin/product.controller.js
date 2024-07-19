@@ -2,6 +2,9 @@ const Product = require("../../models/product.model");
 
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
+  const statusParam = req.query.status;
+  const keywordParam = req.query.keyword;
+
   const buttonsStatus = [
     {
       content: "All",
@@ -20,8 +23,8 @@ module.exports.index = async (req, res) => {
     }
   ];
 
-  if (req.query.status) {
-    const idx = buttonsStatus.findIndex(item => item.status === req.query.status);
+  if (statusParam) {
+    const idx = buttonsStatus.findIndex(item => item.status === statusParam);
     buttonsStatus[idx].active = "active";
   } else {
     buttonsStatus[0].active = "active";
@@ -31,8 +34,13 @@ module.exports.index = async (req, res) => {
     deleted: false
   }
 
-  if (req.query.status) {
-    find.status = req.query.status;
+  if (statusParam) {
+    find.status = statusParam;
+  }
+
+  if (keywordParam) {
+    const regex = new RegExp(keywordParam, "i");
+    find.title = regex;
   }
 
   const products = await Product.find(find);
@@ -40,6 +48,7 @@ module.exports.index = async (req, res) => {
   res.render("admin/pages/products/index", {
     pageTitle: "Products",
     products: products,
-    buttonsStatus: buttonsStatus
+    buttonsStatus: buttonsStatus,
+    keyword: keywordParam
   });
 }

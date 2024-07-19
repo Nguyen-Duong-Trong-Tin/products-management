@@ -5,13 +5,27 @@ block main
     .container
       .card
         .card-header Filters and Search
-        ul.list
-          each item in buttonsStatus
-            li
-              button(
-                class=`btn btn-outline-success${item.active && " " + item.active}`
-                button-status=item.status
-              ) #{item.content}
+        .card-body
+          .row
+            .col-6
+              ul.list
+                each item in buttonsStatus
+                  li
+                    button(
+                      class=`btn btn-outline-success${item.active && " " + item.active}`
+                      button-status=item.status
+                    ) #{item.content}
+            .col-6
+              form.form-search
+                .input-group
+                  input(
+                    class="form-control"
+                    type="text"
+                    name="keyword"
+                    placeholder="Input your keyword"
+                    value=keyword
+                  )
+                  button.btn.btn-success Search
       table.table.table-hover
         thead
           tr

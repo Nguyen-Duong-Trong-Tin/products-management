@@ -65,13 +65,16 @@ ul {
   padding: 80px 0;
 }
 
+.products .card-body {
+  padding: 40px 10px;
+}
+
 .products .list {
-  padding: 40px 0;
   display: flex;
 }
 
 .products .list li {
-  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .products .table {
