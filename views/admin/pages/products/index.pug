@@ -3,6 +3,15 @@ extends ../../layouts/default.pug
 block main
   .products
     .container
+      .card
+        .card-header Filters and Search
+        ul.list
+          each item in buttonsStatus
+            li
+              button(
+                class=`btn btn-outline-success${item.active && " " + item.active}`
+                button-status=item.status
+              ) #{item.content}
       table.table.table-hover
         thead
           tr
@@ -22,9 +31,9 @@ block main
               th #{item.price}$
               th
                 if (item.status === "active")
-                  .btn.btn-success #{item.status}
+                  button.btn.btn-success #{item.status}
                 else
-                  .btn.btn-danger #{item.status}
+                  button.btn.btn-danger #{item.status}
               th
                 button.btn.btn-warning Edit
                 button.btn.btn-danger Delete

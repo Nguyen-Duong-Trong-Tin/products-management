@@ -63,6 +63,18 @@ ul {
 /* Products */
 .products {
   padding: 80px 0;
+}
+
+.products .list {
+  padding: 40px 0;
+  display: flex;
+}
+
+.products .list li {
+  margin-left: 10px;
+}
+
+.products .table {
   text-align: center;
 }
 
