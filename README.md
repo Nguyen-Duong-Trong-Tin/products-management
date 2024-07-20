@@ -29,6 +29,7 @@ controllers/client/home.route.js
 **4. Config Views**
 views/client/pages/home/index.pug
 views/client/layouts/default/index.pug
+views/client/partials/default/index.pug
 views/client/mixins/box-head/index.pug
 
 app.set('views', './views');
@@ -59,3 +60,5 @@ app.locals.prefixAdmin = systemConfig.prefixAdmin;
 **7. Config Model**
 
 const Product = mongoose.model('Product', ProductSchema, "products");
+
+**8. Features To Helpers**
