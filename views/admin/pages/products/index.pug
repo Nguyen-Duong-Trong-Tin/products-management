@@ -1,10 +1,13 @@
 extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
 include ../../mixins/box-filter.pug
 include ../../mixins/form-search.pug
+include ../../mixins/box-pagination.pug
 
 block main
   .products
     .container
+      +box-head(pageTitle)
       .card
         .card-header Filters and Search
         .card-body
@@ -38,3 +41,4 @@ block main
               th
                 button.btn.btn-warning Edit
                 button.btn.btn-danger Delete
+      +box-pagination(pagination)

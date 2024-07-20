@@ -1,4 +1,4 @@
-module.exports.filterByStatus = (query) => {
+module.exports = (query) => {
   const buttonsStatus = [
     {
       content: "All",

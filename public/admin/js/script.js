@@ -1,5 +1,5 @@
 // Filter By Status Feature
-const buttonsStatus = document.querySelectorAll(".products .card .list .btn");
+const buttonsStatus = document.querySelectorAll("[button-status]");
 
 if (buttonsStatus.length > 0) {
   const url = new URL(location.href);
@@ -30,12 +30,28 @@ if (formSearch) {
 
     const value = e.target.elements.keyword.value;
     if (value) {
-      url.searchParams.set("keyword", value);  
+      url.searchParams.set("keyword", value);
     } else {
-      url.searchParams.delete("keyword"); 
+      url.searchParams.delete("keyword");
     }
 
     location.href = url.href;
   });
 }
 // End Search By Keyword Feature
+
+// Pagination
+const buttonsPagination = document.querySelectorAll("[button-pagination]");
+
+if (buttonsPagination.length > 0) {
+  const url = new URL(location.href);
+
+  buttonsPagination.forEach(item => {
+    item.addEventListener("click", () => {
+      url.searchParams.set("page", item.getAttribute("button-pagination"));
+      
+      location.href = url.href;
+    });
+  });
+}
+// End Pagination

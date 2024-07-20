@@ -10,6 +10,23 @@ ul {
 }
 /* End Base */
 
+/* Box-head */
+.box-head {
+  padding: 20px 0;
+}
+
+.box-head .title {
+  text-align: center;
+  font-size: 48px;
+}
+
+@media (max-width: 575.98px) {
+  .box-head .title {
+    font-size: 32px;
+  }
+}
+/* End Box-head */
+
 /* Header */
 .header {
   position: sticky;

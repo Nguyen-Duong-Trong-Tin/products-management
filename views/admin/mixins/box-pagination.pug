@@ -1,0 +1,25 @@
+mixin box-pagination(pagination)
+  nav
+    ul.pagination
+      if (pagination.currentPage > 1)
+        li.page-item
+          button(
+            class="page-link"
+            button-pagination=pagination.currentPage - 1
+          ) Previous
+
+      - for (let i = 1; i <= pagination.quantityPages; i++)
+        li(
+          class=`page-item${i === pagination.currentPage ? " active" : ""}`
+        )
+          button(
+            class="page-link"
+            button-pagination=i
+          ) #{i}
+      
+      if (pagination.currentPage < pagination.quantityPages)
+        li.page-item
+          button(
+            class="page-link"
+            button-pagination=pagination.currentPage + 1
+          ) Next
