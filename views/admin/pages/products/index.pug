@@ -1,4 +1,6 @@
 extends ../../layouts/default.pug
+include ../../mixins/box-filter.pug
+include ../../mixins/form-search.pug
 
 block main
   .products
@@ -8,24 +10,9 @@ block main
         .card-body
           .row
             .col-6
-              ul.list
-                each item in buttonsStatus
-                  li
-                    button(
-                      class=`btn btn-outline-success${item.active && " " + item.active}`
-                      button-status=item.status
-                    ) #{item.content}
+              +box-filter(buttonsStatus)
             .col-6
-              form.form-search
-                .input-group
-                  input(
-                    class="form-control"
-                    type="text"
-                    name="keyword"
-                    placeholder="Input your keyword"
-                    value=keyword
-                  )
-                  button.btn.btn-success Search
+              +form-search(keyword)
       table.table.table-hover
         thead
           tr

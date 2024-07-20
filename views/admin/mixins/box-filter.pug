@@ -1,0 +1,8 @@
+mixin box-filter(buttonsStatus)
+  ul.list
+    each item in buttonsStatus
+      li
+        button(
+          class=`btn btn-outline-success${item.active && " " + item.active}`
+          button-status=item.status
+        ) #{item.content}
