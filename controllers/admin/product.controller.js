@@ -1,46 +1,23 @@
 const Product = require("../../models/product.model");
 
+const filterByStatusHelpers = require("../../helpers/filterByStatus");
+const searchByKeywordHelpers = require("../../helpers/searchByKeyword");
+
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
-  const statusParam = req.query.status;
-  const keywordParam = req.query.keyword;
-
-  const buttonsStatus = [
-    {
-      content: "All",
-      status: "",
-      active: ""
-    },
-    {
-      content: "Active",
-      status: "active",
-      active: ""
-    },
-    {
-      content: "Inactive",
-      status: "inactive",
-      active: ""
-    }
-  ];
-
-  if (statusParam) {
-    const idx = buttonsStatus.findIndex(item => item.status === statusParam);
-    buttonsStatus[idx].active = "active";
-  } else {
-    buttonsStatus[0].active = "active";
-  }
-
   const find = {
     deleted: false
   }
 
-  if (statusParam) {
-    find.status = statusParam;
+  const filterByStatus = filterByStatusHelpers.filterByStatus(req.query);
+  const searchByKeyWord = searchByKeywordHelpers.searchByKeyword(req.query);
+
+  if (req.query.status) {
+    find.status = filterByStatus.status;
   }
 
-  if (keywordParam) {
-    const regex = new RegExp(keywordParam, "i");
-    find.title = regex;
+  if (req.query.keyword) {
+    find.title = searchByKeyWord.keyword;
   }
 
   const products = await Product.find(find);
@@ -48,7 +25,7 @@ module.exports.index = async (req, res) => {
   res.render("admin/pages/products/index", {
     pageTitle: "Products",
     products: products,
-    buttonsStatus: buttonsStatus,
-    keyword: keywordParam
+    buttonsStatus: filterByStatus.buttonsStatus,
+    keyword: req.query.keyword
   });
 }
