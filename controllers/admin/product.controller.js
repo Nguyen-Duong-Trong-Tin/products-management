@@ -44,3 +44,37 @@ module.exports.index = async (req, res) => {
     pagination: pagination
   });
 }
+
+// [PATCH] /admin/products/change-status/:status/:id
+module.exports.changeStatus = async (req, res) => {
+  const status = req.params.status;
+  const id = req.params.id;
+
+  await Product.updateOne(
+    {
+      _id: id
+    },
+    {
+      status: status
+    }
+  );
+
+  res.redirect("back");
+}
+
+// [PATCH] /admin/products/change-multi-status
+module.exports.changeMultiStatus = async (req, res) => {
+  const status = req.body.status;
+  const ids = req.body.ids.split(", ");
+
+  await Product.updateMany(
+    {
+      _id: { $in : ids}
+    },
+    {
+      status: status
+    }
+  );
+
+  res.redirect("back");
+}

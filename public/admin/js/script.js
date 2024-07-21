@@ -49,9 +49,55 @@ if (buttonsPagination.length > 0) {
   buttonsPagination.forEach(item => {
     item.addEventListener("click", () => {
       url.searchParams.set("page", item.getAttribute("button-pagination"));
-      
+
       location.href = url.href;
     });
   });
 }
 // End Pagination
+
+// Check Status
+const checkAll = document.querySelector("input[name=checkAll]");
+if (checkAll) {
+  const checkByIdItems = document.querySelectorAll("input[name=checkByID]");
+
+  checkAll.addEventListener("click", () => {
+    if (checkAll.checked) {
+      checkByIdItems.forEach(item => item.checked = true);
+    } else {
+      checkByIdItems.forEach(item => item.checked = false);
+    }
+  });
+
+  checkByIdItems.forEach(item => {
+    item.addEventListener("click", () => {
+      const countChecked = document.querySelectorAll("#table-products input[name=checkByID]:checked").length;
+
+      checkAll.checked = countChecked === checkByIdItems.length;
+    });
+  });
+}
+// End Check Status
+
+// Form Change Multi Status
+const formChangeMultiStatus = document.querySelector("#form-change-multi-status");
+if (formChangeMultiStatus) {
+  formChangeMultiStatus.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const checkedItems = document.querySelectorAll("#table-products input[name=checkByID]:checked");
+
+    if (checkedItems.length > 0) {
+      const input = formChangeMultiStatus.querySelector("input[name=ids]");
+
+      const ids = [];
+      checkedItems.forEach(item => ids.push(item.value));
+
+      input.value = ids.join(", ");
+
+      formChangeMultiStatus.action += "?_method=PATCH";
+      formChangeMultiStatus.submit();
+    }
+  });
+}
+// End Form Change Multi Status

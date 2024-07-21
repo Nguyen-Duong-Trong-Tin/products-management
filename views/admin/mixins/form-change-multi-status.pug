@@ -1,0 +1,18 @@
+mixin formChangeMulti(action)
+  form(
+    action=action
+    method="POST"
+    id="form-change-multi-status"
+  )
+    .input-group
+      select(
+        name="status"
+        class="form-select"
+      )
+        option(value="active") Active
+        option(value="inactive") Inactive
+      input(
+        class="form-control d-none"
+        name="ids"
+      )
+      button.btn.btn-success Apply

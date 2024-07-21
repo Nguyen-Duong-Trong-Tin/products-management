@@ -3,6 +3,7 @@ include ../../mixins/box-head.pug
 include ../../mixins/box-filter.pug
 include ../../mixins/form-search.pug
 include ../../mixins/box-pagination.pug
+include ../../mixins/form-change-multi-status.pug
 
 block main
   .products
@@ -16,9 +17,18 @@ block main
               +box-filter(buttonsStatus)
             .col-6
               +form-search(keyword)
-      table.table.table-hover
+      +formChangeMulti(`${prefixAdmin}/products/change-multi-status/`)
+      table(
+        class="table table-hover"
+        id="table-products"
+      )
         thead
           tr
+            th
+              input(
+                name="checkAll"
+                type="checkbox"
+              )
             th Order Number
             th Image
             th Title
@@ -28,6 +38,12 @@ block main
         tbody
           each item, idx in products
             tr
+              td
+                input(
+                  type="checkbox"
+                  name="checkByID"
+                  value=item.id
+                )
               td #{idx + 1}
               td
                 img(src=item.thumbnail, alt=item.title)
@@ -35,10 +51,29 @@ block main
               th #{item.price}$
               th
                 if (item.status === "active")
-                  button.btn.btn-success #{item.status}
+                  button(
+                    class="btn btn-success"
+                    button-change-status
+                    data-id=item.id
+                    data-status=item.status
+                  ) #{item.status}
                 else
-                  button.btn.btn-danger #{item.status}
+                  button(
+                    class="btn btn-danger"
+                    button-change-status
+                    data-id=item.id
+                    data-status=item.status
+                  ) #{item.status}
               th
                 button.btn.btn-warning Edit
                 button.btn.btn-danger Delete
       +box-pagination(pagination)
+
+  form(
+    action=""
+    method="POST"
+    id="form-change-status"
+    data-path=`${prefixAdmin}/products/change-status/`
+  )
+
+  script(src="/admin/js/product.js")
