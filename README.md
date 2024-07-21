@@ -5,6 +5,7 @@ npm i --save-dev nodemon
 npm i pug
 npm i dotenv
 npm i mongoose
+npm i method-override
 "start": "nodemon --save-dev index.js"
 
 const express = require('express');
