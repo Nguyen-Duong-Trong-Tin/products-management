@@ -34,7 +34,11 @@ module.exports.index = async (req, res) => {
   pagination = await paginationHelpers(pagination, req.query, Product);
   // End Pagination
 
-  const products = await Product.find(find).limit(pagination.limit).skip(pagination.skip);
+  const products = await Product
+    .find(find)
+    .sort({position: "desc", _id: "desc"})
+    .limit(pagination.limit)
+    .skip(pagination.skip);
 
   res.render("admin/pages/products/index", {
     pageTitle: "Products",
@@ -50,31 +54,41 @@ module.exports.changeStatus = async (req, res) => {
   const status = req.params.status;
   const id = req.params.id;
 
-  await Product.updateOne(
-    {
-      _id: id
-    },
-    {
-      status: status
-    }
-  );
+  await Product.updateOne({ _id: id }, { status: status });
 
   res.redirect("back");
 }
 
-// [PATCH] /admin/products/change-multi-status
-module.exports.changeMultiStatus = async (req, res) => {
-  const status = req.body.status;
+// [PATCH] /admin/products/change-multi
+module.exports.changeMulti = async (req, res) => {
+  const action = req.body.status;
   const ids = req.body.ids.split(", ");
 
-  await Product.updateMany(
-    {
-      _id: { $in : ids}
-    },
-    {
-      status: status
-    }
-  );
+  switch (action) {
+    case "active":
+      await Product.updateMany({ _id: { $in: ids } }, { status: "active" });
+      break;
+
+    case "inactive":
+      await Product.updateMany({ _id: { $in: ids } }, { status: "inactive" });
+      break;
+
+    case "delete-all":
+      await Product.updateMany({ _id: { $in: ids } }, {
+        deleted: true,
+        deletedAt: new Date()
+      });
+      break;
+
+    case "change-position":
+      for (const item of ids) {
+        const [id, position] = item.split("-");
+        await Product.updateMany({ _id: id }, { position: position });
+      }
+
+    default:
+      break;
+  }
 
   res.redirect("back");
 }
@@ -83,20 +97,11 @@ module.exports.changeMultiStatus = async (req, res) => {
 module.exports.deleteItem = async (req, res) => {
   const id = req.params.id;
 
-  // await Product.deleteOne(
-  //   {
-  //     _id: id
-  //   }
-  // );
-  await Product.updateOne(
-    {
-      _id: id
-    },
-    {
-      deleted: true,
-      deletedAt: new Date()
-    }
-  );
+  // await Product.deleteOne({ _id: id });
+  await Product.updateOne({ _id: id }, {
+    deleted: true,
+    deletedAt: new Date()
+  });
 
   res.redirect("back");
 }

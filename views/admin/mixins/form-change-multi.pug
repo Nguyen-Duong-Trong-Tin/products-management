@@ -9,8 +9,11 @@ mixin formChangeMulti(action)
         name="status"
         class="form-select"
       )
+        option(disabled selected) --- Select A Action ---
         option(value="active") Active
         option(value="inactive") Inactive
+        option(value="delete-all") Delete All
+        option(value="change-position") Change Position
       input(
         class="form-control d-none"
         name="ids"

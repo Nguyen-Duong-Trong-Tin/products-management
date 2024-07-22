@@ -17,7 +17,7 @@ block main
               +box-filter(buttonsStatus)
             .col-6
               +form-search(keyword)
-      +formChangeMulti(`${prefixAdmin}/products/change-multi-status`)
+      +formChangeMulti(`${prefixAdmin}/products/change-multi`)
       table(
         class="table table-hover"
         id="table-products"
@@ -33,6 +33,7 @@ block main
             th Image
             th Title
             th Price
+            th Position
             th Status
             th Action
         tbody
@@ -48,8 +49,15 @@ block main
               td
                 img(src=item.thumbnail, alt=item.title)
               td #{item.title}
-              th #{item.price}$
-              th
+              td #{item.price}$
+              td
+                input(
+                  type="number"
+                  name="position"
+                  value=item.position
+                  min=1
+                )
+              td
                 if (item.status === "active")
                   button(
                     class="btn btn-success"
@@ -64,7 +72,7 @@ block main
                     data-id=item.id
                     data-status=item.status
                   ) #{item.status}
-              th
+              td
                 button.btn.btn-warning Edit
                 button(
                   class="btn btn-danger"

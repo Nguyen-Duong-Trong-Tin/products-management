@@ -87,11 +87,30 @@ if (formChangeMulti) {
 
     const checkedItems = document.querySelectorAll("#table-products input[name=checkByID]:checked");
 
+    const action = e.target.elements.status.value;
+
+    if (action === "--- Select A Action ---") {
+      return ;
+    }
+
+    if (action === "delete-all") {
+      if (!confirm("Are you sure?")) {
+        return ;
+      }
+    }
+    
     if (checkedItems.length > 0) {
       const input = formChangeMulti.querySelector("input[name=ids]");
 
       const ids = [];
-      checkedItems.forEach(item => ids.push(item.value));
+      checkedItems.forEach(item => {
+        if (action === "change-position") {
+          const position = item.closest("tr").querySelector("input[name=position]").value;
+          ids.push(`${item.value}-${position}`);
+        } else {
+          ids.push(item.value);
+        }
+      });
 
       input.value = ids.join(", ");
 
