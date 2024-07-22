@@ -10,6 +10,7 @@ npm i body-parser
 
 npm i express-flash
 npm i cookie-parser
+npm i express-session
 
 "start": "nodemon --save-dev index.js"
 
