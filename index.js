@@ -1,6 +1,10 @@
 const express = require('express');
 require('dotenv').config();
 
+const flash = require('express-flash');
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 
@@ -12,6 +16,12 @@ const route = require("./routes/client/index.route");
 
 const app = express();
 const port = process.env.PORT;
+
+// Flash
+app.use(cookieParser("RANDOMDFJKLAFJLKA"));
+app.use(session({ cookie: { maxAge: 60000 } }));
+app.use(flash());
+// End Flash
 
 // override with POST having ?_method=DELETE
 app.use(methodOverride('_method'));

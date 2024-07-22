@@ -56,6 +56,7 @@ module.exports.changeStatus = async (req, res) => {
 
   await Product.updateOne({ _id: id }, { status: status });
 
+  req.flash("success", "Changed Status");
   res.redirect("back");
 }
 
@@ -67,10 +68,14 @@ module.exports.changeMulti = async (req, res) => {
   switch (action) {
     case "active":
       await Product.updateMany({ _id: { $in: ids } }, { status: "active" });
+
+      req.flash("success", `Changed Status ${ids.length} Items`);
       break;
 
     case "inactive":
       await Product.updateMany({ _id: { $in: ids } }, { status: "inactive" });
+
+      req.flash("success", `Changed Status ${ids.length} Items`);
       break;
 
     case "delete-all":
@@ -78,6 +83,8 @@ module.exports.changeMulti = async (req, res) => {
         deleted: true,
         deletedAt: new Date()
       });
+
+      req.flash("success", `Deleted ${ids.length} Items`);
       break;
 
     case "change-position":
@@ -86,6 +93,8 @@ module.exports.changeMulti = async (req, res) => {
         await Product.updateMany({ _id: id }, { position: position });
       }
 
+      req.flash("success", `Changed Position ${ids.length} Items`);
+      break;
     default:
       break;
   }
@@ -103,5 +112,6 @@ module.exports.deleteItem = async (req, res) => {
     deletedAt: new Date()
   });
 
+  req.flash("success", `Deleted`);
   res.redirect("back");
 }

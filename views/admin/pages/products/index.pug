@@ -6,6 +6,18 @@ include ../../mixins/box-pagination.pug
 include ../../mixins/form-change-multi.pug
 
 block main
+  - if (messages.success)
+    div(
+      class="message info alert alert-success"
+      box-alert
+      data-time="3000"
+    )
+      div
+        .content #{messages.success}
+        button(
+          button-close-alert
+        ) x 
+
   .products
     .container
       +box-head(pageTitle)
