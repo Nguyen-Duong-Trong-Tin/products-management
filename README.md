@@ -5,8 +5,15 @@ npm i --save-dev nodemon
 npm i pug
 npm i dotenv
 npm i mongoose
+
 npm i method-override
+
 npm i body-parser
+
+npm i express-flash
+npm i cookie-parser
+npm i express-session
+
 "start": "nodemon --save-dev index.js"
 
 const express = require('express');
