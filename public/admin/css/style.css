@@ -105,8 +105,12 @@ ul {
 }
 /* End Products */
 
-/* Form Change Multi Status */
-#form-change-multi-status {
-  padding: 40px;
+/* Form Change Multi */
+#form-change-multi {
+  padding: 40px 0;
 }
-/* End Form Change Multi Status */
+
+#form-change-multi .input-group {
+  max-width: 300px;
+}
+/* End Form Change Multi */

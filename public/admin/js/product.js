@@ -21,3 +21,25 @@ if (buttonsChangeStatus.length > 0) {
   });
 }
 // End Change Status
+
+// Delete Item
+const buttonsDeleteItem = document.querySelectorAll("[button-delete-item]");
+if (buttonsDeleteItem.length > 0) {
+  const formDeleteItem = document.querySelector("#form-delete-item");
+  const path = formDeleteItem.getAttribute("data-path");
+
+  buttonsDeleteItem.forEach(item => {
+    item.addEventListener("click", () => {
+      if (!confirm("Are you sure?")) {
+        return ;
+      }
+      
+      const id = item.getAttribute("data-id");
+      const action = `${path}${id}?_method=DELETE`;
+
+      formDeleteItem.action = action;
+      formDeleteItem.submit();
+    });
+  });
+}
+// End Delete Item

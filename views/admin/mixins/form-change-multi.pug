@@ -2,7 +2,7 @@ mixin formChangeMulti(action)
   form(
     action=action
     method="POST"
-    id="form-change-multi-status"
+    id="form-change-multi"
   )
     .input-group
       select(
@@ -15,4 +15,4 @@ mixin formChangeMulti(action)
         class="form-control d-none"
         name="ids"
       )
-      button.btn.btn-success Apply
+      button.btn.btn-primary Apply

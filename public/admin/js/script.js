@@ -79,25 +79,25 @@ if (checkAll) {
 }
 // End Check Status
 
-// Form Change Multi Status
-const formChangeMultiStatus = document.querySelector("#form-change-multi-status");
-if (formChangeMultiStatus) {
-  formChangeMultiStatus.addEventListener("submit", (e) => {
+// Form Change Multi
+const formChangeMulti = document.querySelector("#form-change-multi");
+if (formChangeMulti) {
+  formChangeMulti.addEventListener("submit", (e) => {
     e.preventDefault();
 
     const checkedItems = document.querySelectorAll("#table-products input[name=checkByID]:checked");
 
     if (checkedItems.length > 0) {
-      const input = formChangeMultiStatus.querySelector("input[name=ids]");
+      const input = formChangeMulti.querySelector("input[name=ids]");
 
       const ids = [];
       checkedItems.forEach(item => ids.push(item.value));
 
       input.value = ids.join(", ");
 
-      formChangeMultiStatus.action += "?_method=PATCH";
-      formChangeMultiStatus.submit();
+      formChangeMulti.action += "?_method=PATCH";
+      formChangeMulti.submit();
     }
   });
 }
-// End Form Change Multi Status
+// End Form Change Multi
