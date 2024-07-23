@@ -6,17 +6,20 @@ npm i pug
 npm i dotenv
 npm i mongoose
 
+// To Using form
 npm i method-override
 
+// To Using req.body
 npm i body-parser
 
+// To Using alert
 npm i express-flash
 npm i cookie-parser
 npm i express-session
 
-npm i mongoose-slug-updater
-
-npm i multer
+// To Create Item
+npm i mongoose-slug-updater // Create slug
+npm i multer // Upload file
 
 "start": "nodemon --save-dev index.js"
 
@@ -75,3 +78,13 @@ app.locals.prefixAdmin = systemConfig.prefixAdmin;
 const Product = mongoose.model('Product', ProductSchema, "products");
 
 **8. Features To Helpers**
+
+**Filter By Status**
+await Product.find(req.query.status);
+
+location.href = "/admin?status=:status";
+
+**Search By Keyword**
+await Product.find(new RegExp(keywordParam, "i"));
+
+location.href = "/admin?keyword=:keyword";
