@@ -14,6 +14,8 @@ npm i express-flash
 npm i cookie-parser
 npm i express-session
 
+npm i mongoose-slug-updater
+
 "start": "nodemon --save-dev index.js"
 
 const express = require('express');
