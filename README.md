@@ -88,3 +88,10 @@ location.href = "/admin?status=:status";
 await Product.find(new RegExp(keywordParam, "i"));
 
 location.href = "/admin?keyword=:keyword";
+
+**Pagination**
+pagination.skip = (pagination.currentPage - 1) * pagination.limit;
+await Product.find(find).limit(pagination.limit).skip(pagination.skip);
+
+location.href = "/admin?page=:page";
+
