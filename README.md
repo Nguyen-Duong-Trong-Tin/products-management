@@ -16,6 +16,8 @@ npm i express-session
 
 npm i mongoose-slug-updater
 
+npm i multer
+
 "start": "nodemon --save-dev index.js"
 
 const express = require('express');
