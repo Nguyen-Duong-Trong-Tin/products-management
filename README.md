@@ -153,9 +153,17 @@ formChangeMulti.submit();
 
 await Product.create(req.body);
 
-
 form(
     method="POST"
     action=`${prefixAdmin}/products/create`
+)
+  input(name="" value="")
+
+**Edit Item**
+await Product.updateOne({ _id: req.params.id }, req.body);
+
+form(
+    method="POST"
+    action=`${prefixAdmin}/products/edit/${product.id}?_method=PATCH`
 )
   input(name="" value="")
