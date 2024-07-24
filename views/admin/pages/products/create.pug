@@ -48,14 +48,28 @@ block main
         min="0"
         value="0"
       )
-    .item.form-group
+    div(
+      class="item form-group"
+      upload-image
+    )
       label Thumbnail
       input(
         class="form-control"
         type="file"
         name="thumbnail"
         accept="image/*"
+        upload-image-input
       )
+      .inner-img
+        img(
+          src=""
+          upload-image-preview
+        )
+        button(
+          type="button"
+          class="btn btn-danger"
+          button-close-image
+        ) x
     .item.form-group
       label Position
       input(

@@ -1,6 +1,5 @@
 // Filter By Status Feature
 const buttonsStatus = document.querySelectorAll("[button-status]");
-
 if (buttonsStatus.length > 0) {
   const url = new URL(location.href);
 
@@ -21,7 +20,6 @@ if (buttonsStatus.length > 0) {
 
 // Search By Keyword Feature
 const formSearch = document.querySelector(".form-search");
-
 if (formSearch) {
   const url = new URL(location.href);
 
@@ -42,7 +40,6 @@ if (formSearch) {
 
 // Pagination
 const buttonsPagination = document.querySelectorAll("[button-pagination]");
-
 if (buttonsPagination.length > 0) {
   const url = new URL(location.href);
 
@@ -136,3 +133,24 @@ if (boxAlert) {
   });
 }
 // End Alert
+
+// Upload Image
+const uploadImage = document.querySelector("[upload-image]");
+if (uploadImage) {
+  const uploadImageInput = document.querySelector("[upload-image-input]");
+  const uploadImagePreview = document.querySelector("[upload-image-preview]");
+  const buttonCloseImage = document.querySelector("[button-close-image]");
+
+  uploadImageInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      uploadImagePreview.src = URL.createObjectURL(file);
+    }
+  });
+
+  buttonCloseImage.addEventListener("click", () => {
+    uploadImageInput.value = "";
+    uploadImagePreview.src = "";
+  });
+}
+// End Upload Image

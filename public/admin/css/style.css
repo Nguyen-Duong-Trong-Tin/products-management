@@ -146,3 +146,21 @@ ul {
   margin-bottom: 30px;
 }
 /* End Form Create A Product */
+
+/* Upload Image */
+[upload-image] [upload-image-preview] {
+  border: 1px solid #dddddd;
+  width: 300px;
+  height: 300px;
+  margin-top: 30px;
+  padding: 20px;
+}
+
+[upload-image] [upload-image-preview][src=""] {
+  display: none;
+}
+
+[upload-image] [upload-image-preview][src=""] ~ [button-close-image] {
+  display: none;
+}
+/* End Upload Image */
