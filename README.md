@@ -6,7 +6,7 @@ npm i pug
 npm i dotenv
 npm i mongoose
 
-// To Using form
+// To Using PATCH DELETE Method
 npm i method-override
 
 // To Using req.body
@@ -82,16 +82,49 @@ const Product = mongoose.model('Product', ProductSchema, "products");
 **Filter By Status**
 await Product.find(req.query.status);
 
-location.href = "/admin?status=:status";
+location.href = "/admin/products?status=:status";
 
 **Search By Keyword**
 await Product.find(new RegExp(keywordParam, "i"));
 
-location.href = "/admin?keyword=:keyword";
+location.href = "/admin/products?keyword=:keyword";
 
 **Pagination**
 pagination.skip = (pagination.currentPage - 1) * pagination.limit;
 await Product.find(find).limit(pagination.limit).skip(pagination.skip);
 
-location.href = "/admin?page=:page";
+location.href = "/admin/products?page=:page";
 
+**Change Status**
+// Change a item
+await Product.updateOne({ _id: req.params.id }, { status: req.params.status });
+
+formChangeStatus.setAttribute("action", "/admin/products/change-status/:status/:id?_method=PATCH");
+
+// Change many item
+await Product.updateMany({ _id: { $in : $in { req.body.ids.split(", ") } }, { status: status });
+
+
++ formChangeMulti(action="/admin/products/:feature")
+    input(name="" value="")
+
+formChangeMulti.action += "?_method=PATCH";
+formChangeMulti.submit();
+
+**Delete Item**
+// Delete a item
+// await Product.deleteOne({ _id: id });
+await Product.updateOne({ _id: id }, { deleted: true, deletedAt: new Date() });
+
+formDeleteItem.action = "/admin/products/delete/:id?_method=DELETE";
+formDeleteItem.submit();
+
+// Delete many item
+await Product.updateMany({ _id: { $in: req.body.ids.split(", ") } }, { deleted: true, deletedAt: new Date() });
+
+
++ formChangeMulti(action="/admin/products/:feature")
+    input(name="" value="")
+
+formChangeMulti.action += "?_method=PATCH";
+formChangeMulti.submit();
