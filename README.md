@@ -12,14 +12,14 @@ npm i method-override
 // To Using req.body
 npm i body-parser
 
-// To Using alert
+// To Using Alert
 npm i express-flash
 npm i cookie-parser
 npm i express-session
 
 // To Create Item
-npm i mongoose-slug-updater // Create slug
-npm i multer // Upload file
+npm i mongoose-slug-updater // Create Slug
+npm i multer // Upload File
 
 "start": "nodemon --save-dev index.js"
 
@@ -82,49 +82,76 @@ const Product = mongoose.model('Product', ProductSchema, "products");
 **Filter By Status**
 await Product.find(req.query.status);
 
-location.href = "/admin/products?status=:status";
+location.href = `${prefixAdmin}/products?status=:status`;
 
 **Search By Keyword**
 await Product.find(new RegExp(keywordParam, "i"));
 
-location.href = "/admin/products?keyword=:keyword";
+location.href = `${prefixAdmin}/products?keyword=:keyword`;
 
 **Pagination**
 pagination.skip = (pagination.currentPage - 1) * pagination.limit;
 await Product.find(find).limit(pagination.limit).skip(pagination.skip);
 
-location.href = "/admin/products?page=:page";
+                  location.href = `${prefixAdmin}/products?page=:page`;
 
 **Change Status**
-// Change a item
+// Change A Item
 await Product.updateOne({ _id: req.params.id }, { status: req.params.status });
 
-formChangeStatus.setAttribute("action", "/admin/products/change-status/:status/:id?_method=PATCH");
+formChangeStatus.setAttribute("action", `${prefixAdmin}/products/change-status/:status/:id?_method=PATCH`);
 
-// Change many item
+// Change Many Item
 await Product.updateMany({ _id: { $in : $in { req.body.ids.split(", ") } }, { status: status });
 
 
-+ formChangeMulti(action="/admin/products/:feature")
++ formChangeMulti(action=`${prefixAdmin}/products/form-change-multi`)
     input(name="" value="")
 
 formChangeMulti.action += "?_method=PATCH";
 formChangeMulti.submit();
 
 **Delete Item**
-// Delete a item
-// await Product.deleteOne({ _id: id });
-await Product.updateOne({ _id: id }, { deleted: true, deletedAt: new Date() });
+// Delete A Item
+// await Product.deleteOne({ _id: req.params.id });
+await Product.updateOne({ _id: req.params.id }, { deleted: true, deletedAt: new Date() });
 
-formDeleteItem.action = "/admin/products/delete/:id?_method=DELETE";
+formDeleteItem.action = `${prefixAdmin}/products/delete/:id?_method=DELETE`;
 formDeleteItem.submit();
 
-// Delete many item
+// Delete Many Item
 await Product.updateMany({ _id: { $in: req.body.ids.split(", ") } }, { deleted: true, deletedAt: new Date() });
 
 
-+ formChangeMulti(action="/admin/products/:feature")
++ formChangeMulti(action=`${prefixAdmin}/products/form-change-multi`)
     input(name="" value="")
 
 formChangeMulti.action += "?_method=PATCH";
 formChangeMulti.submit();
+
+**Change Position**
+for (const item of req.body.ids.split(", ")) {
+  const [id, position] = item.split("-");
+  await Product.updateMany({ _id: id }, { position: position });
+}
+
+
++ formChangeMulti(action=`${prefixAdmin}/products/form-change-multi`)
+    input(name="" value="")
+
+formChangeMulti.action += "?_method=PATCH";
+formChangeMulti.submit();
+
+**Create Item**
+// Keywords:
+//   deleted, timestamp.
+//   slug, uploadFile.
+
+await Product.create(req.body);
+
+
+form(
+    method="POST"
+    action=`${prefixAdmin}/products/create`
+)
+  input(name="" value="")
