@@ -73,7 +73,7 @@ module.exports = {
 // App Local Variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
-**7. Config Model**
+**7. Config Models**
 model/product.model.js
 
 const Product = mongoose.model('Product', ProductSchema, "products");
