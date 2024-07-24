@@ -4,19 +4,10 @@ include ../../mixins/box-filter.pug
 include ../../mixins/form-search.pug
 include ../../mixins/box-pagination.pug
 include ../../mixins/form-change-multi.pug
+include ../../mixins/box-alert.pug
 
 block main
-  - if (messages.success)
-    div(
-      class="message info alert alert-success"
-      box-alert
-      data-time="3000"
-    )
-      div
-        .content #{messages.success}
-        button(
-          button-close-alert
-        ) x 
+  +box-alert-success(messages)
 
   .products
     .container

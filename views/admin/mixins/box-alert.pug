@@ -1,0 +1,25 @@
+mixin box-alert-success(messages)
+  - if (messages.success)
+    div(
+      class="message info alert alert-success"
+      box-alert
+      data-time="3000"
+    )
+      div
+        .content #{messages.success}
+        button(
+          button-close-alert
+        ) x
+
+mixin box-alert-error(messages)
+  - if (messages.error)
+    div(
+      class="message info alert alert-success"
+      box-alert
+      data-time="3000"
+    )
+      div
+        .content #{messages.error}
+        button(
+          button-close-alert
+        ) x

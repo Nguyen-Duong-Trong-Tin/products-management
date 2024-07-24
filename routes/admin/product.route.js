@@ -5,6 +5,7 @@ const multer  = require('multer');
 const storageMulter = require("../../helpers/storageMulter");
 const upload = multer({ storage: storageMulter() });
 
+const validate = require("../../validates/admin/product.validate");
 const controller = require("../../controllers/admin/product.controller");
 
 router.get('/', controller.index);
@@ -17,6 +18,11 @@ router.delete('/delete-item/:id', controller.deleteItem);
 
 router.get('/create', controller.create);
 
-router.post('/create', upload.single("thumbnail"), controller.createItem);
+router.post(
+  '/create',
+  upload.single("thumbnail"),
+  validate.createItem,
+  controller.createItem
+);
 
 module.exports = router;

@@ -1,7 +1,10 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
+include ../../mixins/box-alert.pug
 
 block main
+  +box-alert-error(messages)
+
   +box-head("Create A Product")
   form(
     id="form-create-product"
@@ -14,6 +17,7 @@ block main
       input(
         class="form-control"
         name="title"
+        require
       )
     .item.form-group
       label Description
@@ -85,6 +89,7 @@ block main
         name="status"
         value="active"
         class="form-check-input"
+        checked
       )
       label.form-check-label Active
       input(
