@@ -136,3 +136,13 @@ ul {
   color: red;
 }
 /* End Alert */
+
+/* Form Create A Product */
+#form-create-product {
+  padding: 80px 40px;
+}
+
+#form-create-product .item {
+  margin-bottom: 30px;
+}
+/* End Form Create A Product */

@@ -1,0 +1,87 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main
+  +box-head("Create A Product")
+  form(
+    id="form-create-product"
+    method="POST"
+    action=`${prefixAdmin}/products/create`
+    enctype="multipart/form-data"
+  )
+    .item.form-group
+      label Title
+      input(
+        class="form-control"
+        name="title"
+      )
+    .item.form-group
+      label Description
+      input(
+        class="form-control"
+        name="description"
+      )
+    .item.form-group
+      label Price
+      input(
+        class="form-control"
+        type="number"
+        name="price"
+        min="0"
+        value="0"
+      )
+    .item.form-group
+      label Discount Percentage
+      input(
+        class="form-control"
+        type="number"
+        name="discountPercentage"
+        min="0"
+        value="0"
+      )
+    .item.form-group
+      label Stock
+      input(
+        class="form-control"
+        type="number"
+        name="stock"
+        min="0"
+        value="0"
+      )
+    .item.form-group
+      label Thumbnail
+      input(
+        class="form-control"
+        type="file"
+        name="thumbnail"
+        accept="image/*"
+      )
+    .item.form-group
+      label Position
+      input(
+        class="form-control"
+        type="number"
+        name="position"
+        placeholder="Auto Descending"
+      )
+    .item.form-group
+      p Status
+      input(
+        type="radio"
+        name="status"
+        value="active"
+        class="form-check-input"
+      )
+      label.form-check-label Active
+      input(
+        type="radio"
+        name="status"
+        value="inactive"
+        class="form-check-input"
+      )
+      label.form-check-label Inactive
+    .item.form-group
+      button(
+        class="btn btn-primary"
+      ) Create
+      

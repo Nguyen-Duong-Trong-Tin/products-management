@@ -3,6 +3,7 @@ const Product = require("../../models/product.model");
 const filterByStatusHelpers = require("../../helpers/filterByStatus");
 const searchByKeywordHelpers = require("../../helpers/searchByKeyword");
 const paginationHelpers = require("../../helpers/pagination");
+const { prefixAdmin } = require("../../config/system");
 
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
@@ -36,7 +37,7 @@ module.exports.index = async (req, res) => {
 
   const products = await Product
     .find(find)
-    .sort({position: "desc", _id: "desc"})
+    .sort({ position: "desc", _id: "desc" })
     .limit(pagination.limit)
     .skip(pagination.skip);
 
@@ -114,4 +115,37 @@ module.exports.deleteItem = async (req, res) => {
 
   req.flash("success", `Deleted`);
   res.redirect("back");
+}
+
+// [GET] /admin/products/create
+module.exports.create = (req, res) => {
+  res.render("admin/pages/products/create.pug", {
+    pageTitle: "Create A Product"
+  });
+}
+
+// [POST] /admin/products/create
+module.exports.createItem = async (req, res) => {
+  req.body.price = parseInt(req.body.price);
+  req.body.discountPercentage = parseInt(req.body.discountPercentage);
+  req.body.stock = parseInt(req.body.stock);
+
+  if (req.body.position === "") {
+    const products = await Product.find({});
+    req.body.position = 0;
+    products.forEach(item => {
+      if (req.body.position < item.position) {
+        req.body.position = item.position;
+      }
+    });
+    ++req.body.position;
+  } else {
+    req.body.position = parseInt(req.body.position);
+  }
+
+  req.body.thumbnail = `/uploads/${req.file.filename}`;
+
+  await Product.create(req.body);
+
+  res.redirect(`${prefixAdmin}/products`);
 }

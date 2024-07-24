@@ -29,7 +29,14 @@ block main
               +box-filter(buttonsStatus)
             .col-6
               +form-search(keyword)
-      +formChangeMulti(`${prefixAdmin}/products/change-multi`)
+      .row
+        .col-6
+          +formChangeMulti(`${prefixAdmin}/products/change-multi`)
+        .col-6
+          a(
+            href=`${prefixAdmin}/products/create`
+            class="badge text-bg-success"
+          ) + Add a product
       table(
         class="table table-hover"
         id="table-products"
