@@ -19,7 +19,7 @@ npm i express-session
 
 // To Create Item
 npm i mongoose-slug-updater // Create Slug
-npm i multer // Upload File
+npm i multer // Upload Image
 
 "start": "nodemon --save-dev index.js"
 
@@ -74,9 +74,14 @@ module.exports = {
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
 **7. Config Model**
+model/product.model.js
+
 const Product = mongoose.model('Product', ProductSchema, "products");
 
-**8. Features To Helpers**
+**8. Config Validates**
+validates/admin/product.validate.js
+
+**9. Features To Helpers**
 
 **Filter By Status**
 await Product.find(req.query.status);
