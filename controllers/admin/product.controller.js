@@ -151,3 +151,50 @@ module.exports.createItem = async (req, res) => {
 
   res.redirect(`${prefixAdmin}/products`);
 }
+
+// [GET] /admin/products/edit/:id
+module.exports.edit = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const product = await Product.findOne({ _id: id });
+    res.render("admin/pages/products/edit.pug", {
+      product: product
+    });
+  } catch (error) {
+    res.redirect(`${prefixAdmin}/products`);
+  }
+}
+
+// [PATCH] /admin/products/edit/:id
+module.exports.editPatch = async (req, res) => {
+  console.log(req.params.id);
+
+  req.body.price = parseInt(req.body.price);
+  req.body.discountPercentage = parseInt(req.body.discountPercentage);
+  req.body.stock = parseInt(req.body.stock);
+
+  if (req.body.position === "") {
+    const products = await Product.find({});
+    req.body.position = 0;
+    products.forEach(item => {
+      if (req.body.position < item.position) {
+        req.body.position = item.position;
+      }
+    });
+    ++req.body.position;
+  } else {
+    req.body.position = parseInt(req.body.position);
+  }
+
+  if (req.file) {
+    req.body.thumbnail = `/uploads/${req.file.filename}`;
+  }
+
+  try {
+    await Product.updateOne({_id: req.params.id}, req.body);
+  } catch (error) {
+    res.redirect("back");
+  }
+  
+  res.redirect("back");
+}

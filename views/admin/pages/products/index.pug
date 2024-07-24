@@ -83,7 +83,10 @@ block main
                     data-status=item.status
                   ) #{item.status}
               td
-                button.btn.btn-warning Edit
+                a(
+                  href=`${prefixAdmin}/products/edit/${item.id}`
+                  class="btn btn-warning"
+                ) Edit
                 button(
                   class="btn btn-danger"
                   button-delete-item
