@@ -167,3 +167,14 @@ form(
     action=`${prefixAdmin}/products/edit/${product.id}?_method=PATCH`
 )
   input(name="" value="")
+
+**Detail A Item**
+// admin
+await Product.findOne({ deleted: false, _id: req.params.id });
+
+a(href=`${prefixAdmin}/products/detail/:id`)
+
+// client
+await Product.findOne({ deleted: false, status: "active", slug: req.params.slug });
+
+a(href=`/products/:id`)
