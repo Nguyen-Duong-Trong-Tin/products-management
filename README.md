@@ -183,6 +183,6 @@ a(href=`/products/:id`)
 **10. DEPLOY**
 DATABASE: https://cloud.mongodb.com/v2#/org/66a2100b6a30e3639c308ece/projects
 
-VERCEL:
-  https://shadowsmith.com/thoughts/how-to-deploy-an-express-api-to-vercel
-  __dirname
+VERCEL: https://shadowsmith.com/thoughts/how-to-deploy-an-express-api-to-vercel
+vercel.json: "use": "@vercel/node"
+index.js: __dirname
