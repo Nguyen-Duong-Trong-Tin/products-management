@@ -1,0 +1,30 @@
+extends ../../layouts/default.pug
+
+block main
+  main.main
+    h1 #{product.title}
+
+    if (product.price)
+      p Price: #{product.price}
+
+    if (product.discountPercentage)
+      p Discount Percentage: #{product.discountPercentage}
+    
+    if (product.stock)
+      p Stock: #{product.stock}
+
+    if (product.thumbnail)
+      div(
+        style="width: 300px"
+      )
+        img(
+          src=product.thumbnail
+          alt=product.title
+          style="width: 100%"
+        )
+
+    if (product.position)
+      p Position: #{product.position}
+    
+    if (product.description)
+      p #{product.description}

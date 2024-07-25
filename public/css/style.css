@@ -47,6 +47,12 @@ ul {
 }
 /* End Footer */
 
+/* Main */
+.main {
+  padding: 80px;
+}
+/* End Main */
+
 /* Box-head */
 .box-head {
   padding: 20px 0;
