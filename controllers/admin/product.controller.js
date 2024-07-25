@@ -155,8 +155,12 @@ module.exports.createItem = async (req, res) => {
 // [GET] /admin/products/edit/:id
 module.exports.edit = async (req, res) => {
   try {
-    const id = req.params.id;
-    const product = await Product.findOne({ _id: id });
+    const find = {
+      deleted: false,
+      _id: req.params.id
+    }
+
+    const product = await Product.findOne(find);
     res.render("admin/pages/products/edit.pug", {
       product: product
     });
@@ -167,8 +171,6 @@ module.exports.edit = async (req, res) => {
 
 // [PATCH] /admin/products/edit/:id
 module.exports.editPatch = async (req, res) => {
-  console.log(req.params.id);
-
   req.body.price = parseInt(req.body.price);
   req.body.discountPercentage = parseInt(req.body.discountPercentage);
   req.body.stock = parseInt(req.body.stock);
@@ -191,10 +193,28 @@ module.exports.editPatch = async (req, res) => {
   }
 
   try {
-    await Product.updateOne({_id: req.params.id}, req.body);
+    await Product.updateOne({ _id: req.params.id }, req.body);
   } catch (error) {
     res.redirect("back");
   }
-  
+
   res.redirect("back");
+}
+
+// [GET] /admin/products/detail/:id
+module.exports.detail = async (req, res) => {
+  try {
+    const find = {
+      deleted: false,
+      _id: req.params.id
+    };
+
+    const product = await Product.findOne(find);
+    res.render("admin/pages/products/detail", {
+      pageTitle: product.title,
+      product: product
+    })
+  } catch (error) {
+    res.redirect(`.${prefixAdmin}/products`);
+  }
 }

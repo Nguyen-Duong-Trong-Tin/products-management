@@ -84,11 +84,15 @@ block main
                   ) #{item.status}
               td
                 a(
+                  href=`${prefixAdmin}/products/detail/${item.id}`
+                  class="btn btn-secondary btn-sm"
+                ) Detail
+                a(
                   href=`${prefixAdmin}/products/edit/${item.id}`
-                  class="btn btn-warning"
+                  class="btn btn-warning btn-sm"
                 ) Edit
                 button(
-                  class="btn btn-danger"
+                  class="btn btn-danger btn-sm"
                   button-delete-item
                   data-id=item.id
                 ) Delete
