@@ -24,6 +24,8 @@ module.exports.index = async (req, res) => {
 module.exports.detail = async (req, res) => {
   try {
     const find = {
+      deleted: false,
+      status: "active",
       slug: req.params.slug
     };
 
