@@ -178,3 +178,11 @@ a(href=`${prefixAdmin}/products/detail/:id`)
 await Product.findOne({ deleted: false, status: "active", slug: req.params.slug });
 
 a(href=`/products/:id`)
+
+
+**10. DEPLOY**
+DATABASE: https://cloud.mongodb.com/v2#/org/66a2100b6a30e3639c308ece/projects
+
+VERCEL:
+  https://shadowsmith.com/thoughts/how-to-deploy-an-express-api-to-vercel
+  __dirname
