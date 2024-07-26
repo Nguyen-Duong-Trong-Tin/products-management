@@ -81,6 +81,8 @@ const Product = mongoose.model('Product', ProductSchema, "products");
 **8. Config Validates**
 validates/admin/product.validate.js
 
+**8. Config Middlewares**
+
 **9. Features To Helpers**
 
 **Filter By Status**
@@ -186,3 +188,6 @@ DATABASE: https://cloud.mongodb.com/v2#/org/66a2100b6a30e3639c308ece/projects
 VERCEL: https://shadowsmith.com/thoughts/how-to-deploy-an-express-api-to-vercel
 vercel.json: "use": "@vercel/node"
 index.js: __dirname
+
+CLOUD:  https://cloudinary.com/
+toturial: https://cloudinary.com/blog/node_js_file_upload_to_a_local_server_or_to_the_cloud
