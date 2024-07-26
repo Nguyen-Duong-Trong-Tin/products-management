@@ -20,6 +20,23 @@ block main
               +box-filter(buttonsStatus)
             .col-6
               +form-search(keyword)
+      .card
+        .card-header Sort
+        .card-body
+          .input-group
+            select(
+              class="form-select"
+              name="sort"
+              select-sort
+            )
+              option(value="position-desc" option-default-sort) Position DESC
+              option(value="position-asc") Position ASC
+              option(value="price-desc") Price DESC
+              option(value="price-asc") Price ASC
+              option(value="title-asc") Title A - Z
+              option(value="title-desc") Title Z - A
+            button(clear-sort class="btn btn-danger") Clear
+      
       .row
         .col-6
           +formChangeMulti(`${prefixAdmin}/products/change-multi`)

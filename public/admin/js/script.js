@@ -87,15 +87,15 @@ if (formChangeMulti) {
     const action = e.target.elements.status.value;
 
     if (action === "--- Select A Action ---") {
-      return ;
+      return;
     }
 
     if (action === "delete-all") {
       if (!confirm("Are you sure?")) {
-        return ;
+        return;
       }
     }
-    
+
     if (checkedItems.length > 0) {
       const input = formChangeMulti.querySelector("input[name=ids]");
 
@@ -154,3 +154,32 @@ if (uploadImage) {
   });
 }
 // End Upload Image
+
+// Sort
+const selectSort = document.querySelector("[select-sort]");
+if (selectSort) {
+  const url = new URL(location.href);
+
+  selectSort.addEventListener("change", () => {
+    const [sortKey, sortValue] = selectSort.value.split("-");
+
+    url.searchParams.set("sortKey", sortKey);
+    url.searchParams.set("sortValue", sortValue);
+
+    location.href = url.href;
+  });
+
+  const sortKey = url.searchParams.get("sortKey");
+  const sortValue = url.searchParams.get("sortValue");
+
+  const option = selectSort.querySelector(`option[value=${sortKey}-${sortValue}]`);
+  if (option) {
+    option.selected = true;
+  }
+
+  const buttonClear = document.querySelector("[clear-sort]");
+  buttonClear.addEventListener("click", () => {
+    location.href = `${url.origin}${url.pathname}`;
+  });
+}
+// End Sort
