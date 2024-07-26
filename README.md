@@ -20,6 +20,7 @@ npm i express-session
 // To Create Item
 npm i mongoose-slug-updater // Create Slug
 npm i multer // Upload Image
+npm install --save tinymce // Word: https://www.tiny.cloud/docs/tinymce/latest/expressjs-pm/
 
 "start": "nodemon --save-dev index.js"
 
