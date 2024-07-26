@@ -36,7 +36,7 @@ block main
     p Position: #{product.position}
   
   if (product.description)
-    p #{product.description}
+    p !{product.description}
 
   a(
     href=`${prefixAdmin}/products/edit/${product.id}`
