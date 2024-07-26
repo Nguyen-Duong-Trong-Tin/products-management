@@ -181,6 +181,16 @@ await Product.findOne({ deleted: false, status: "active", slug: req.params.slug 
 
 a(href=`/products/:id`)
 
+**Sort**
+const sort = {};
+if (req.query.sortKey && req.query.sortValue) {
+  sort[req.query.sortKey] = req.query.sortValue;
+} else {
+  sort.position = "desc";
+}
+await Product.sort(sort);
+
+location.href = "?sortKey=:key&sortValue=:value;
 
 **10. DEPLOY**
 DATABASE: https://cloud.mongodb.com/v2#/org/66a2100b6a30e3639c308ece/projects
