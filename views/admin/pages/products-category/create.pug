@@ -1,0 +1,85 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/box-alert.pug
+
+block main
+  +box-alert-error(messages)
+
+  +box-head("Create A Product Category")
+  form(
+    id="form-create-product"
+    method="POST"
+    action=`${prefixAdmin}/products-category/create`
+    enctype="multipart/form-data"
+  )
+    .item.form-group
+      label Title
+      input(
+        class="form-control"
+        name="title"
+        required
+      )
+    .item.form-group
+      label Parent Category
+      input(
+        class="form-control"
+        name="parent_id"
+      )
+    .item.form-group
+      label Description
+      textarea(
+        class="form-control tinyMCE"
+        name="description"
+      )
+    div(
+      class="item form-group"
+      upload-image
+    )
+      label Thumbnail
+      input(
+        class="form-control"
+        type="file"
+        name="thumbnail"
+        accept="image/*"
+        upload-image-input
+      )
+      .inner-img
+        img(
+          src=""
+          upload-image-preview
+        )
+        button(
+          type="button"
+          class="btn btn-danger"
+          button-close-image
+        ) x
+    .item.form-group
+      label Position
+      input(
+        class="form-control"
+        type="number"
+        name="position"
+        placeholder="Auto Descending"
+      )
+    .item.form-group
+      p Status
+      input(
+        type="radio"
+        name="status"
+        value="active"
+        class="form-check-input"
+        checked
+      )
+      label.form-check-label Active
+      input(
+        type="radio"
+        name="status"
+        value="inactive"
+        class="form-check-input"
+      )
+      label.form-check-label Inactive
+    .item.form-group
+      button(
+        class="btn btn-primary"
+      ) Create
+      

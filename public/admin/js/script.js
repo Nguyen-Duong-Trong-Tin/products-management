@@ -1,3 +1,12 @@
+// Go Back
+const goBack = document.querySelector("[go-back]");
+if (goBack) {
+  goBack.addEventListener("click", () => {
+    history.back();
+  });
+}
+// End Go Back
+
 // Filter By Status Feature
 const buttonsStatus = document.querySelectorAll("[button-status]");
 if (buttonsStatus.length > 0) {

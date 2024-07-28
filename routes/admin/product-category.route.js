@@ -5,16 +5,10 @@ const multer = require('multer');
 const upload = multer();
 const uploadCloudinary = require("../../helpers/uploadCloudinary");
 
-const validate = require("../../validates/admin/product.validate");
-const controller = require("../../controllers/admin/product.controller");
+const validate = require("../../validates/admin/product-category.validate");
+const controller = require("../../controllers/admin/product-category.controller");
 
 router.get('/', controller.index);
-
-router.patch('/change-status/:status/:id', controller.changeStatus);
-
-router.patch('/change-multi', controller.changeMulti);
-
-router.delete('/delete-item/:id', controller.deleteItem);
 
 router.get('/create', controller.create);
 
@@ -23,8 +17,12 @@ router.post(
   upload.single("thumbnail"),
   uploadCloudinary,
   validate.createItem,
-  controller.createItem
+  controller.createPost
 );
+
+router.patch('/change-multi', controller.changeMulti);
+
+router.get('/detail/:id', controller.detail);
 
 router.get('/edit/:id', controller.edit);
 
@@ -36,6 +34,6 @@ router.patch(
   controller.editPatch
 );
 
-router.get('/detail/:id', controller.detail);
+router.delete("/delete-item/:id", controller.delete);
 
 module.exports = router;

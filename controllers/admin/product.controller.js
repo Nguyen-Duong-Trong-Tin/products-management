@@ -153,10 +153,6 @@ module.exports.createItem = async (req, res) => {
     req.body.position = parseInt(req.body.position);
   }
 
-  if (req.file) {
-    req.body.thumbnail = `/uploads/${req.file.filename}`;
-  }
-
   await Product.create(req.body);
 
   res.redirect(`${prefixAdmin}/products`);
@@ -196,10 +192,6 @@ module.exports.editPatch = async (req, res) => {
     ++req.body.position;
   } else {
     req.body.position = parseInt(req.body.position);
-  }
-
-  if (req.file) {
-    req.body.thumbnail = `/uploads/${req.file.filename}`;
   }
 
   try {

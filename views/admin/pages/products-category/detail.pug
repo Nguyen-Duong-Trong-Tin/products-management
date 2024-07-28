@@ -1,0 +1,44 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/go-back.pug
+
+block main
+  +box-head(pageTitle)
+
+  +go-back()
+
+  if (record.title)
+    p #{record.title}
+
+  if (record.thumbnail)
+    div(
+      style="width: 300px"
+    )
+      img(
+        src=record.thumbnail
+        alt=record.title
+        style="width: 100%"
+      )
+
+  if (record.status)
+    if (record.status === "active")
+      p(
+        class="badge text-bg-success"
+      ) #{record.status}
+    else
+      p(
+        class="badge text-bg-danger"
+      ) #{record.status}
+
+  if (record.position)
+    p Position: #{record.position}
+  
+  if (record.description)
+    p !{record.description}
+
+  a(
+    href=`${prefixAdmin}/products-category/edit/${record.id}`
+    class="btn btn-warning"
+  ) Edit
+
+  
