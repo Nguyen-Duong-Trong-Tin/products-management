@@ -1,6 +1,7 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 include ../../mixins/box-alert.pug
+include ../../mixins/select-tree.pug
 
 block main
   +box-alert-error(messages)
@@ -21,10 +22,13 @@ block main
       )
     .item.form-group
       label Parent Category
-      input(
-        class="form-control"
+      select(
+        class="form-select"
         name="parent_id"
       )
+        option(value="") --- Chọn danh mục ---
+        if (record)
+          +select-tree(record)
     .item.form-group
       label Description
       textarea(

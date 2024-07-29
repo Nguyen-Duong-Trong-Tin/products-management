@@ -5,6 +5,7 @@ include ../../mixins/form-search.pug
 include ../../mixins/box-pagination.pug
 include ../../mixins/form-change-multi.pug
 include ../../mixins/box-alert.pug
+include ../../mixins/table-tree.pug
 
 block main
   +box-alert-success(messages)
@@ -20,20 +21,6 @@ block main
               +box-filter(buttonsStatus)
             .col-6
               +form-search(keyword)
-      .card
-        .card-header Sort
-        .card-body
-          .input-group
-            select(
-              class="form-select"
-              name="sort"
-              select-sort
-            )
-              option(value="position-desc" option-default-sort) Position DESC
-              option(value="position-asc") Position ASC
-              option(value="title-asc") Title A - Z
-              option(value="title-desc") Title Z - A
-            button(clear-sort class="btn btn-danger") Clear
       
       .row
         .col-6
@@ -62,56 +49,8 @@ block main
             th Status
             th Action
         tbody
-          each item, idx in records
-            tr
-              td
-                input(
-                  type="checkbox"
-                  name="checkByID"
-                  value=item.id
-                )
-              td #{idx + 1}
-              td
-                img(src=item.thumbnail, alt=item.title)
-              td #{item.title}
-              td #{item.price}$
-              td
-                input(
-                  type="number"
-                  name="position"
-                  value=item.position
-                  min=1
-                )
-              td
-                if (item.status === "active")
-                  button(
-                    class="btn btn-success"
-                    button-change-status
-                    data-id=item.id
-                    data-status=item.status
-                  ) #{item.status}
-                else
-                  button(
-                    class="btn btn-danger"
-                    button-change-status
-                    data-id=item.id
-                    data-status=item.status
-                  ) #{item.status}
-              td
-                a(
-                  href=`${prefixAdmin}/products-category/detail/${item.id}`
-                  class="btn btn-secondary btn-sm"
-                ) Detail
-                a(
-                  href=`${prefixAdmin}/products-category/edit/${item.id}`
-                  class="btn btn-warning btn-sm"
-                ) Edit
-                button(
-                  class="btn btn-danger btn-sm"
-                  button-delete-item
-                  data-id=item.id
-                ) Delete
-      +box-pagination(pagination)
+          if (record)
+            +table-tree(record)
 
   form(
     action=""

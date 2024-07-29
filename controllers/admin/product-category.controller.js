@@ -3,6 +3,7 @@ const ProductCategory = require("../../models/product-category.model");
 const filterByStatusHelpers = require("../../helpers/filterByStatus");
 const searchByKeywordHelpers = require("../../helpers/searchByKeyword");
 const paginationHelpers = require("../../helpers/pagination");
+const createTreeHelpers = require("../../helpers/createTree");
 const { prefixAdmin } = require("../../config/system");
 
 // [GET] /admin/products-category
@@ -25,46 +26,30 @@ module.exports.index = async (req, res) => {
   }
   // End Search
 
-  // Pagination
-  let pagination = {
-    currentPage: 1,
-    limit: 4,
-    skip: 0,
-  };
+  const record = await ProductCategory.find(find)
 
-  pagination = await paginationHelpers(pagination, req.query, ProductCategory);
-  // End Pagination
-
-  // Sort
-  const sort = {};
-
-  if (req.query.sortKey && req.query.sortValue) {
-    sort[req.query.sortKey] = req.query.sortValue;
-  } else {
-    sort.position = "desc";
-  }
-  // End Sort
-
-  const records = await ProductCategory
-    .find(find)
-    .sort(sort)
-    .limit(pagination.limit)
-    .skip(pagination.skip);
+  const newRecord = createTreeHelpers.createTree(record);
 
   res.render("admin/pages/products-category/index", {
     pageTitle: "Products Category",
-    records: records,
+    record: newRecord,
     buttonsStatus: filterByStatus.buttonsStatus,
     keyword: req.query.keyword,
-    pagination: pagination
   });
 }
 
 // [GET] /admin/products-category/create
 module.exports.create = async (req, res) => {
+  const find = {
+    deleted: false
+  };
+  const record = await ProductCategory.find(find);
+
+  const newRecord = createTreeHelpers.createTree(record);
 
   res.render("admin/pages/products-category/create", {
     pageTitle: "Create A Product Category",
+    record: newRecord
   });
 }
 
@@ -144,7 +129,7 @@ module.exports.edit = async (req, res) => {
   try {
     const id = req.params.id;
     const productCategory = await ProductCategory.findOne({ _id: id });
-    
+
     res.render("admin/pages/products-category/edit", {
       pageTitle: "Edit A Product Category",
       record: productCategory
@@ -173,7 +158,7 @@ module.exports.editPatch = async (req, res) => {
     const id = req.params.id;
     const record = req.body;
 
-    await ProductCategory.updateOne({_id: id}, record);
+    await ProductCategory.updateOne({ _id: id }, record);
     req.flash("Success", "Updated");
   } catch (error) {
     req.flash("Error", "Not Updated");
@@ -186,13 +171,13 @@ module.exports.editPatch = async (req, res) => {
 module.exports.delete = async (req, res) => {
   try {
     const id = req.params.id;
-    await ProductCategory.updateOne({_id: id}, {
+    await ProductCategory.updateOne({ _id: id }, {
       deleted: true,
       deletedAt: new Date()
     })
   } catch (error) {
     req.flash("Error", "Not Deleted");
   }
-  
+
   res.redirect("back");
 }

@@ -1,0 +1,53 @@
+mixin table-tree(items, level = 1)
+  each item, idx in items
+    - const prefix = Array(level + 1).join("-- ")
+    tr
+      td
+        input(
+          type="checkbox"
+          name="checkByID"
+          value=item.id
+        )
+      td #{item.count}
+      td
+        img(src=item.thumbnail, alt=item.title)
+      td #{prefix}#{item.title}
+      td #{item.price}$
+      td
+        input(
+          type="number"
+          name="position"
+          value=item.position
+          min=1
+        )
+      td
+        if (item.status === "active")
+          button(
+            class="btn btn-success"
+            button-change-status
+            data-id=item.id
+            data-status=item.status
+          ) #{item.status}
+        else
+          button(
+            class="btn btn-danger"
+            button-change-status
+            data-id=item.id
+            data-status=item.status
+          ) #{item.status}
+      td
+        a(
+          href=`${prefixAdmin}/products-category/detail/${item.id}`
+          class="btn btn-secondary btn-sm"
+        ) Detail
+        a(
+          href=`${prefixAdmin}/products-category/edit/${item.id}`
+          class="btn btn-warning btn-sm"
+        ) Edit
+        button(
+          class="btn btn-danger btn-sm"
+          button-delete-item
+          data-id=item.id
+        ) Delete
+      if (item.children && item.children.length > 0)
+        +table-tree(item.children, level + 1)
