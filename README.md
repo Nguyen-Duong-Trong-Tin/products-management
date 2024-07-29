@@ -193,6 +193,41 @@ await Product.sort(sort);
 
 location.href = "?sortKey=:key&sortValue=:value;
 
+**Create Tree**
+let count = 0;
+const createTreeRecursion = (arr, parentId = "") => {
+  const tree = [];
+  arr.forEach(item => {
+    if (item.parent_id === parentId) {
+      const newItem = item;
+      newItem.count = ++count;
+      const children = createTreeRecursion(arr, item.id);
+      if (children.length > 0) {
+        newItem.children = children;
+      }
+      tree.push(newItem);
+    }
+  });
+  return tree;
+}
+module.exports.createTree = (arr, parentId = "") => {
+  count = 0;
+  return createTreeRecursion(arr, parentId);
+}
+
+mixin select-tree(items, level = 1)
+  each item in items
+    - const prefix = Array(level + 1).join("-- ")
+    option(value=item.id) #{prefix}#{item.title}
+      if (item.children && item.children.length > 0)
+        +select-tree(item.children, level + 1)
+
+const record = await ProductCategory.find(find);
+const newRecord = createTreeHelpers.createTree(record);
+
+if (record)
+  +table-tree(record)
+
 **10. DEPLOY**
 DATABASE: https://cloud.mongodb.com/v2#/org/66a2100b6a30e3639c308ece/projects
 
