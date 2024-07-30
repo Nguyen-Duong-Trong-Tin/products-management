@@ -151,7 +151,7 @@ formChangeMulti.submit();
 
 **Create Item**
 // Keywords:
-//   deleted, timestamp.
+//   deleted, timestamp, category.
 //   slug, uploadFile.
 
 await Product.create(req.body);
@@ -193,7 +193,7 @@ await Product.sort(sort);
 
 location.href = "?sortKey=:key&sortValue=:value;
 
-**Create Tree**
+**Create Tree (Category)**
 let count = 0;
 const createTreeRecursion = (arr, parentId = "") => {
   const tree = [];
