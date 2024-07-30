@@ -130,9 +130,16 @@ module.exports.edit = async (req, res) => {
     const id = req.params.id;
     const productCategory = await ProductCategory.findOne({ _id: id });
 
+    const find = {
+      deleted: false
+    }
+    const records = await ProductCategory.find(find);
+    const newRecords = createTreeHelpers.createTree(records);
+
     res.render("admin/pages/products-category/edit", {
       pageTitle: "Edit A Product Category",
-      record: productCategory
+      record: productCategory,
+      newRecords: newRecords
     });
   } catch (error) {
     res.redirect("/admin/products-category");

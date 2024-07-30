@@ -3,7 +3,9 @@ const Product = require("../../models/product.model");
 const filterByStatusHelpers = require("../../helpers/filterByStatus");
 const searchByKeywordHelpers = require("../../helpers/searchByKeyword");
 const paginationHelpers = require("../../helpers/pagination");
+const createTreeHelpers = require("../../helpers/createTree");
 const { prefixAdmin } = require("../../config/system");
+const ProductCategory = require("../../models/product-category.model");
 
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
@@ -128,9 +130,16 @@ module.exports.deleteItem = async (req, res) => {
 }
 
 // [GET] /admin/products/create
-module.exports.create = (req, res) => {
+module.exports.create = async (req, res) => {
+  const find = {
+    deleted: false
+  }
+  const records = await ProductCategory.find(find);
+  const newRecords = createTreeHelpers.createTree(records);
+
   res.render("admin/pages/products/create.pug", {
-    pageTitle: "Create A Product"
+    pageTitle: "Create A Product",
+    records: newRecords
   });
 }
 
@@ -165,10 +174,16 @@ module.exports.edit = async (req, res) => {
       deleted: false,
       _id: req.params.id
     }
-
     const product = await Product.findOne(find);
+
+    const records = await ProductCategory.find({
+      deleted: false
+    });
+    const newRecords = createTreeHelpers.createTree(records);
+
     res.render("admin/pages/products/edit.pug", {
-      product: product
+      product: product,
+      records: newRecords
     });
   } catch (error) {
     res.redirect(`${prefixAdmin}/products`);
@@ -196,11 +211,12 @@ module.exports.editPatch = async (req, res) => {
 
   try {
     await Product.updateOne({ _id: req.params.id }, req.body);
+    req.flash("Success", "Ok");
+    res.redirect(`${prefixAdmin}/products`);
   } catch (error) {
+    req.flash("Error", "Have a error");
     res.redirect("back");
   }
-
-  res.redirect("back");
 }
 
 // [GET] /admin/products/detail/:id
