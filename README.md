@@ -228,6 +228,11 @@ const newRecord = createTreeHelpers.createTree(record);
 if (record)
   +table-tree(record)
 
+**Permissions**
+"roles" {
+  
+}
+
 **10. DEPLOY**
 DATABASE: https://cloud.mongodb.com/v2#/org/66a2100b6a30e3639c308ece/projects
 
