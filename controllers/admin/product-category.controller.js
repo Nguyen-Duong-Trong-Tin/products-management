@@ -115,12 +115,13 @@ module.exports.detail = async (req, res) => {
   try {
     const id = req.params.id;
     const productCategory = await ProductCategory.findOne({ _id: id });
+    
     res.render("admin/pages/products-category/detail", {
       pageTitle: "Detail Product Category",
       record: productCategory
     });
   } catch (error) {
-    redirect("admin/products-category");
+    res.redirect(`${prefixAdmin}/products-category`);
   }
 }
 

@@ -1,0 +1,58 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/box-alert.pug
+
+block main
+  +box-alert-success(messages)
+
+  .roles
+    .container
+      +box-head(pageTitle)
+
+      .row
+        .col-6
+        .col-6
+          a(
+            href=`${prefixAdmin}/roles/create`
+            class="badge text-bg-success"
+          ) + Add a role
+      
+      table(
+        class="table table-hover"
+        id="table-products"
+      )
+        thead
+          tr
+            th Order Number
+            th Title
+            th Description
+            th Action
+        tbody
+          each item, idx in records
+            tr
+              td #{idx + 1}
+              td #{item.title}
+              td #{item.description}
+              td
+                a(
+                  href=`${prefixAdmin}/roles/detail/${item.id}`
+                  class="btn btn-secondary btn-sm"
+                ) Detail
+                a(
+                  href=`${prefixAdmin}/roles/edit/${item.id}`
+                  class="btn btn-warning btn-sm"
+                ) Edit
+                button(
+                  class="btn btn-danger btn-sm"
+                  button-delete-item
+                  data-id=item.id
+                ) Delete
+  
+  form(
+    action=""
+    method="POST"
+    id="form-delete-item"
+    data-path=`${prefixAdmin}/roles/delete-item/`
+  )
+
+  script(src="/admin/js/product.js")

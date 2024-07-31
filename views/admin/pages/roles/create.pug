@@ -1,0 +1,30 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/box-alert.pug
+
+block main
+  +box-alert-error(messages)
+
+  +box-head(pageTitle)
+  form(
+    method="POST"
+    action=`${prefixAdmin}/roles/create`
+  )
+    .item.form-group
+      label Title
+      input(
+        class="form-control"
+        name="title"
+        required
+      )
+    .item.form-group
+      label Description
+      textarea(
+        class="form-control"
+        name="description"
+      )
+    .item.form-group
+      button(
+        class="btn btn-primary"
+      ) Create
+      

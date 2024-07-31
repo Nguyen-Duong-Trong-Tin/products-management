@@ -1,0 +1,21 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/go-back.pug
+
+block main
+  +box-head(pageTitle)
+
+  +go-back()
+
+  if (record.title)
+    p #{record.title}
+  
+  if (record.description)
+    p #{record.description}
+
+  a(
+    href=`${prefixAdmin}/roles/edit/${record.id}`
+    class="btn btn-warning"
+  ) Edit
+
+  

@@ -1,0 +1,35 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/box-alert.pug
+include ../../mixins/go-back.pug
+
+block main
+  +box-alert-error(messages)
+
+  +box-head(pageTitle)
+
+  +go-back()
+
+  form(
+    method="POST"
+    action=`${prefixAdmin}/roles/edit/${record.id}?_method=PATCH`
+  )
+    .item.form-group
+      label Title
+      input(
+        class="form-control"
+        name="title"
+        required
+        value=record.title
+      )
+    .item.form-group
+      label Description
+      textarea(
+        class="form-control"
+        name="description"
+      ) #{record.description}
+    .item.form-group
+      button(
+        type="submit"
+        class="btn btn-primary"
+      ) Update
